@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-product-filters',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./product-filters.component.css']
 })
 export class ProductFiltersComponent {
+  search = '';
 
+  @Output() searchChange = new EventEmitter<string>();
+
+  onSearchChange() {
+    this.searchChange.emit(this.search);
+  }
 }

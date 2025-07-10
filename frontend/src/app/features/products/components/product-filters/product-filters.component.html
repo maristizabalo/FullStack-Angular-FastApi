@@ -1,1 +1,7 @@
-<p>product-filters works!</p>
+<input
+  type="text"
+  [(ngModel)]="search"
+  (input)="onSearchChange()"
+  placeholder="Buscar productos..."
+  class="border border-gray-300 rounded px-4 py-2 w-full"
+/>

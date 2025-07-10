@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  private readonly apiUrl = 'http://localhost:8000/products';
+  private readonly apiUrl = 'http://localhost:8001/products/';
 
   constructor(private http: HttpClient) {}
 
@@ -19,4 +19,5 @@ export class ProductService {
   create(product: ProductCreate): Observable<Product> {
     return this.http.post<Product>(this.apiUrl, product);
   }
+
 }

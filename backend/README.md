@@ -17,8 +17,8 @@ Este es un proyecto de API REST construido con FastAPI y SQLite para gestionar p
 1. Clona el repositorio:
 
 ```
-git clone https://tu-repo-url.git
-cd fastapi-store
+git clone https://github.com/maristizabalo/FullStack-Angular-FastApi.git
+cd FullStack-Angular-FastApi
 ```
 
 2. Crea y activa un entorno virtual:

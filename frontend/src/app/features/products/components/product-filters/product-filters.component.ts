@@ -3,14 +3,14 @@ import { Component, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-product-filters',
   templateUrl: './product-filters.component.html',
-  styleUrls: ['./product-filters.component.css']
 })
 export class ProductFiltersComponent {
-  search = '';
+  selectedCategory: string = '';
+  @Output() categoryChange = new EventEmitter<string>();
 
-  @Output() searchChange = new EventEmitter<string>();
-
-  onSearchChange() {
-    this.searchChange.emit(this.search);
+  onCategoryChange(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    this.selectedCategory = value;
+    this.categoryChange.emit(value);
   }
 }

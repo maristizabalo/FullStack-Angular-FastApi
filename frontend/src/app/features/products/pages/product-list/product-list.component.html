@@ -9,8 +9,9 @@
 
   <div class="space-y-4">
     <app-product-filters
-      (searchChange)="handleSearch($event)"
+      (categoryChange)="handleCategoryFilter($event)"
     ></app-product-filters>
+
     <app-product-table [products]="filteredProducts"></app-product-table>
   </div>
 </div>

@@ -1,7 +1,10 @@
-<input
-  type="text"
-  [(ngModel)]="search"
-  (input)="onSearchChange()"
-  placeholder="Buscar productos..."
+<select
+  [(ngModel)]="selectedCategory"
+  (change)="onCategoryChange($event)"
   class="border border-gray-300 rounded px-4 py-2 w-full"
-/>
+>
+  <option value="">Todas las categorías</option>
+  <option value="Electronica">Electrónica</option>
+  <option value="Juguetes">Juguetes</option>
+  <option value="Ropa">Ropa</option>
+</select>

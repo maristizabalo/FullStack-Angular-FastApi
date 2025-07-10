@@ -10,27 +10,42 @@ import { Product } from '../../models/product.model';
 export class ProductListComponent implements OnInit {
   allProducts: Product[] = [];
   filteredProducts: Product[] = [];
+  currentCategory: string = '';
+  currentSearch: string = '';
 
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.getProducts();
+    this.loadProducts();
   }
 
-  getProducts() {
-    this.productService.getAll().subscribe({
+  loadProducts() {
+    this.productService.getAll(this.currentCategory).subscribe({
       next: (data) => {
         this.allProducts = data;
-        this.filteredProducts = data;
+        this.applySearchFilter();
       },
       error: (err) => console.error('Error al cargar productos', err)
     });
   }
 
+  handleCategoryFilter(category: string) {
+    this.currentCategory = category;
+    this.loadProducts();
+  }
+
   handleSearch(term: string) {
-    const value = term.toLowerCase();
-    this.filteredProducts = this.allProducts.filter(product =>
-      product.name.toLowerCase().includes(value)
-    );
+    this.currentSearch = term.toLowerCase();
+    this.applySearchFilter();
+  }
+
+  private applySearchFilter() {
+    if (this.currentSearch) {
+      this.filteredProducts = this.allProducts.filter(product =>
+        product.name.toLowerCase().includes(this.currentSearch)
+      );
+    } else {
+      this.filteredProducts = [...this.allProducts];
+    }
   }
 }

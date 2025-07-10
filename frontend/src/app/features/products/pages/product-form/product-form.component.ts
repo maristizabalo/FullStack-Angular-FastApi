@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductFormComponent implements OnInit {
   productForm!: FormGroup;
   isEditMode = false;
-  categories = ['Electrónica', 'Ropa', 'Juguetes'];
+  categories = ['Electronica', 'Ropa', 'Juguetes'];
 
   constructor(
     private fb: FormBuilder,

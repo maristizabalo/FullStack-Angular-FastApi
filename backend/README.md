@@ -81,6 +81,9 @@ backend/
 
 ## Notas
 
-- Asegúrate de estar usando Python 3.8 o superior.
-- Este proyecto usa `pydantic-settings` en lugar del `BaseSettings` incorporado en Pydantic.
-- El campo `orm_mode` ha sido reemplazado por `from_attributes` para compatibilidad con Pydantic v2.
+- Proyecto ejecutado con python 3.12.7.
+
+## Autor
+
+**Maicol Jacobo Aristizabal Obando**  
+_Desarrollador Full Stack_

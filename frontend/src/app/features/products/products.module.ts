@@ -9,6 +9,9 @@ import { ProductFormComponent } from './pages/product-form/product-form.componen
 import { ProductTableComponent } from './components/product-table/product-table.component';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +25,9 @@ import { ProductFiltersComponent } from './components/product-filters/product-fi
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    ProductsRoutingModule
+    ProductsRoutingModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ]
 })
 export class ProductsModule { }

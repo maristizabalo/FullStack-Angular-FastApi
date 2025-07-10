@@ -3,7 +3,7 @@
     {{ isEditMode ? 'Editar Producto' : 'Crear Producto' }}
   </h2>
 
-  <form (ngSubmit)="onSubmit()" [formGroup]="productForm" class="grid gap-4 max-w-md">
+  <form *ngIf="!loading" (ngSubmit)="onSubmit()" [formGroup]="productForm" class="grid gap-4 max-w-md">
     <input formControlName="name" placeholder="Nombre del producto" class="border p-2 rounded" />
     <input formControlName="price" placeholder="Precio" type="number" class="border p-2 rounded" />
     <select formControlName="category" class="border p-2 rounded">
@@ -13,4 +13,9 @@
       Guardar
     </button>
   </form>
+
+  <!-- Spinner de carga -->
+  <div *ngIf="loading" class="flex justify-center items-center h-40">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+  </div>
 </div>

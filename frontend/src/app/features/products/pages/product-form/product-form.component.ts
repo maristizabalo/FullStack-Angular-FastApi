@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { ProductCreate } from '../../models/product.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-form',
@@ -13,12 +14,14 @@ export class ProductFormComponent implements OnInit {
   isEditMode = false;
   productId: number | null = null;
   categories = ['Electronica', 'Ropa', 'Juguetes'];
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -37,12 +40,15 @@ export class ProductFormComponent implements OnInit {
   }
 
   loadProduct(id: number) {
+    this.loading = true;
     this.productService.getById(id).subscribe({
       next: (product) => {
         this.productForm.patchValue(product);
+        this.loading = false;
       },
-      error: (err) => {
-        console.error('Error al cargar producto', err);
+      error: () => {
+        this.loading = false;
+        this.snackBar.open('Error al cargar el producto', 'Cerrar', { duration: 3000 });
       }
     });
   }
@@ -51,21 +57,26 @@ export class ProductFormComponent implements OnInit {
     if (this.productForm.invalid) return;
 
     const producto: ProductCreate = this.productForm.value;
+    this.loading = true;
 
-    if (this.isEditMode && this.productId !== null) {
-      this.productService.update(this.productId, producto).subscribe({
-        next: () => {
-          this.router.navigate(['/productos']);
-        },
-        error: (err) => console.error('Error al actualizar', err)
-      });
-    } else {
-      this.productService.create(producto).subscribe({
-        next: () => {
-          this.router.navigate(['/productos']);
-        },
-        error: (err) => console.error('Error al crear', err)
-      });
-    }
+    const obs = this.isEditMode && this.productId !== null
+      ? this.productService.update(this.productId, producto)
+      : this.productService.create(producto);
+
+    obs.subscribe({
+      next: () => {
+        this.loading = false;
+        this.snackBar.open(
+          this.isEditMode ? 'Producto actualizado' : 'Producto creado',
+          'Cerrar',
+          { duration: 3000 }
+        );
+        this.router.navigate(['/productos']);
+      },
+      error: () => {
+        this.loading = false;
+        this.snackBar.open('Error al guardar el producto', 'Cerrar', { duration: 3000 });
+      }
+    });
   }
 }
